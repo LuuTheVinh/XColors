@@ -1,5 +1,6 @@
 #include "IntroScene.h"
 
+
 Scene* IntroScene::createScene()
 {
     // 'scene' is an autorelease object
@@ -20,7 +21,7 @@ bool IntroScene::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !Layer::init() )
+    if ( !LayerColor::initWithColor(Color4B::WHITE) )
     {
         return false;
     }
@@ -29,8 +30,17 @@ bool IntroScene::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
+	auto introBG = Sprite::create("LogoTeamX.png");
+	introBG->setPosition(Point(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
+	this->addChild(introBG);
 
+	this->scheduleOnce(schedule_selector(IntroScene::gotoMenuScene), 2.0f);
+    
     return true;
+}
+
+void IntroScene::gotoMenuScene(float dt)
+{
+	auto menuscene = MenuScene::createScene();
+	Director::getInstance()->replaceScene(TransitionMoveInR::create(0.25f, menuscene));
 }

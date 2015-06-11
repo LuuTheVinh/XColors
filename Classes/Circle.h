@@ -8,20 +8,38 @@ USING_NS_CC;
 class Circle : public Sprite
 {
 public:
-	void setText(std::string text);
+	void setCircleText(std::string text);
+	void setCircleName(std::string text);
+	std::string getCircleText();
+	std::string getCircleName();
+	void changeTexture(std::string type);
+	bool isSelected();
+	bool isMatched();
+
 	virtual bool init();
 	virtual void onEnter();
 	
+	bool onTouchBegan(Touch* touch, Event* event);
+	
 	static Circle* create(std::string filename);
+	void checkMatch();
+	void randomPosition();
 
 private:
-	std::string circleText;
-	std::string circleName;
+	std::string _circleText;
+	std::string _circleName;
 
-	Size visibleSize;
-	Vec2 origin;
+	Label* _colorLabel;
+	Label* shadowLabel;
 
-	void randomPosition();
+	Size _visibleSize;
+	Vec2 _origin;
+
+	bool _isSelected;
+	bool _isMatched;
+
+	
+	
 };
 
 
